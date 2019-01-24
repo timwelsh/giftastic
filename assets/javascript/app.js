@@ -5,10 +5,11 @@ $(document).ready(function() {
     //Original list of GIFs
     var originalGifList = ["spider", "bat", "the shining", "centipeded"]
 
-    //create new button - working!
+    // create new button - working!
     $("form").submit(function(event) {
         event.preventDefault();
         var inputText = $("#inputGif").val();
+        originalGifList.push(inputText);
         newButton = $("<button>").text(inputText).addClass("btn btn-dark");
         newButton.attr("data-creep", inputText);
         $(".gifButtons").append(newButton);
@@ -20,12 +21,16 @@ $(document).ready(function() {
         for(var i = 0; i < originalGifList.length; i++) {
             var buttonGif = $("<button>").text(originalGifList[i])
             buttonGif.addClass("btn btn-dark mr-2")
+            buttonGif.attr("data-creep", originalGifList[i])
             $(".gifButtons").append(buttonGif);
         }
     }
     buildButtons();
 
-    $(document).on("click", function() {
+    // $(document).on("click", function() {
+    // showGif function is working!
+    function showGif () {
+
         var creep = $(this).attr("data-creep");
         var apiKey = "api_key=Ano70sddTNMYHNQVNpgeQdCCClqQr93n"
         var queryURL = "https://api.giphy.com/v1/gifs/search?" + apiKey + "&q=" + creep + "&limit=10&rating=G"
@@ -54,5 +59,8 @@ $(document).ready(function() {
 
             }
         });
-    })
+    }
+    // })
+
+    $(document).on("click", ".btn", showGif);
 })
