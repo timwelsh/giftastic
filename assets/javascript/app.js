@@ -7,12 +7,12 @@ $(document).ready(function() {
 
     // create new button - working!
     $("form").submit(function(event) {
-        event.preventDefault();
-        var inputText = $("#inputGif").val();
-        originalGifList.push(inputText);
-        newButton = $("<button>").text(inputText).addClass("btn btn-dark");
-        newButton.attr("data-creep", inputText);
-        $(".gifButtons").append(newButton);
+        event.preventDefault()
+        var inputText = $("#inputGif").val()
+        originalGifList.push(inputText)
+        newButton = $("<button>").text(inputText).addClass("btn btn-dark")
+        newButton.attr("data-creep", inputText)
+        $(".gifButtons").append(newButton)
     });
 
     // build buttons to display from the array above - working!
@@ -22,7 +22,7 @@ $(document).ready(function() {
             var buttonGif = $("<button>").text(originalGifList[i])
             buttonGif.addClass("btn btn-dark mr-2")
             buttonGif.attr("data-creep", originalGifList[i])
-            $(".gifButtons").append(buttonGif);
+            $(".gifButtons").append(buttonGif)
         }
     }
     buildButtons();
@@ -62,5 +62,19 @@ $(document).ready(function() {
     }
     // })
 
-    $(document).on("click", ".btn", showGif);
+    function animateGif (){
+        var state = $(this).attr("data-state")
+        if (state === "still") {
+            var moveImage = $(this).attr("data-animate")
+            $(this).attr("src", moveImage)
+            $(this).attr("data-state", "animate")
+        } else if (state === "animate") {
+            var setImage = $(this).attr("data-still")
+            $(this).attr("src", still)
+            $(this).attr("data-state", "still")
+        }
+    }
+
+    $(document).on("click", ".btn", showGif)
+    $(document).on("click", ".gif", animateGif)
 })
