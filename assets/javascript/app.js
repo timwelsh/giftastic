@@ -17,13 +17,13 @@ $(document).ready(function() {
         $(".gifButtons").empty()
         for(var i = 0; i < originalGifList.length; i++) {
             var buttonGif = $("<button>").text(originalGifList[i])
-            buttonGif.addClass("btn btn-dark mr-2 data-creep")
+            buttonGif.addClass("btn btn-dark mr-2")
             $(".gifButtons").append(buttonGif);
         }
     }
     buildButtons();
 
-    $(document).on("click", ".creep", function() {
+    $(document).on("click", function() {
         var creep = $(this).attr("data-creep");
         var apiKey = "api_key=Ano70sddTNMYHNQVNpgeQdCCClqQr93n"
         var queryURL = "https://api.giphy.com/v1/gifs/search?" + apiKey + "&q=" + creep + "&limit=10&offset=0&rating=G&lang=en"
@@ -33,13 +33,14 @@ $(document).ready(function() {
         method: "GET"
         })
         .then(function(response) {
-            var result = $(this).attr("data-creep")
+            // var result = $(this).attr("data-creep")
             // var newDiv = $(".gifButtons");
             // const img = $("<img>");
 
 
-            for (var i = 0; i < result.length; i++) {
-                console.log(result);
+            for (var i = 0; i < response.data.length; i++) {
+                console.log(response);
+                
                 var stillImage = response.data[i].images.fixed_width_still.url;
                 var animateImage = response.data[i].images.fixed_width.url;
                 var newImage = $("<img>");
