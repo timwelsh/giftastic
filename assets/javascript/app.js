@@ -10,7 +10,7 @@ $(document).ready(function() {
         event.preventDefault()
         var inputText = $("#inputGif").val()
         originalGifList.push(inputText)
-        newButton = $("<button>").text(inputText).addClass("btn btn-dark")
+        newButton = $("<button>").text(inputText).addClass("btn btn-dark ml-2")
         newButton.attr("data-creep", inputText)
         $(".gifButtons").append(newButton)
     });
@@ -40,16 +40,16 @@ $(document).ready(function() {
         method: "GET"
         })
         .then(function(response) {
-            console.log(queryURL);
+            console.log(response);
 
             for (var i = 0; i < 10; i++) {
                 var newDiv = $("<div class='newDiv'>");
                 var p = $("<p>").text("Rating: " + response.data[i].rating);
                 var newImage = $("<img>");
                 p.attr("class", "gif")
-                newImage.attr("src", response.data[i].images.downsized_still.url);
-				newImage.attr("data-still", response.data[i].images.fixed_width_still.url);
-                newImage.attr("data-animate", response.data[i].images.original.url);
+                newImage.attr("src", response.data[i].images.fixed_height_still.url);
+				newImage.attr("data-still", response.data[i].images.fixed_height_still.url);
+                newImage.attr("data-animate", response.data[i].images.fixed_height.url);
 				newImage.attr("data-state", "still"); 
 				newImage.attr("class", "gif");
                 // prepend in new div
@@ -62,15 +62,15 @@ $(document).ready(function() {
     }
     // })
 
-    function animateGif (){
+    function animateGif () {
         var state = $(this).attr("data-state")
-        if (state === "still") {
+        if (state === "still") {  // set to the animated gif
             var moveImage = $(this).attr("data-animate")
             $(this).attr("src", moveImage)
             $(this).attr("data-state", "animate")
-        } else if (state === "animate") {
+        } else if (state === "animate") {  // set to the sill image
             var setImage = $(this).attr("data-still")
-            $(this).attr("src", still)
+            $(this).attr("src", setImage)
             $(this).attr("data-state", "still")
         }
     }
