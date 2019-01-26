@@ -51,12 +51,12 @@ $(document).ready(function() {
 				newImage.attr("data-still", response.data[i].images.fixed_height_still.url);
                 newImage.attr("data-animate", response.data[i].images.fixed_height.url);
 				newImage.attr("data-state", "still"); 
-				newImage.attr("class", "gif");
-                // prepend in new div
-                newDiv.prepend(p);
-                newDiv.prepend(newImage);
-                $(".gifs-here").prepend(newDiv);
+                newImage.attr("class", "gif");
 
+                // prepend in new div
+                newDiv.append(p);
+                newDiv.append(newImage);
+                $(".gifs-here").append(newDiv);
             }
         });
     }
